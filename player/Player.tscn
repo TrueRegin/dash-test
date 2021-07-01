@@ -8,7 +8,11 @@ extents = Vector2( 18.0515, 18.0578 )
 [sub_resource type="NoiseTexture" id=2]
 
 [node name="Player" type="KinematicBody2D"]
+position = Vector2( 512, 320 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
