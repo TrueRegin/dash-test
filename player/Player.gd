@@ -45,21 +45,28 @@ func handle_input():
 		verti += 1
 	
 	if(pressed):
-		$ChainTimer.start(0.5)
+		$ChainTimer.start(0.3)
 		amt = amt.normalized()
 		vel += amt * 0.5
 		
 		# The dash capabilities are implemented here.
-		vel.x *= 5 if abs(horiz) == 2 else 1
-		vel.y *= 5 if abs(verti) == 2 else 1
+		var horiz_dash = abs(horiz) == 2
+		var verti_dash = abs(verti) == 2
+		if(horiz_dash):
+			$AnimationPlayer.play("Dash_Horiz")
+		if(verti_dash):
+			$AnimationPlayer.play("Dash_Verti")
+
+		vel.x *= 5 if horiz_dash else 1
+		vel.y *= 5 if verti_dash else 1
+		
+		
 		
 		var dashing = abs(horiz) == 2 or abs(verti) == 2
 		if(dashing):
 			dash_reset()
 			
 		accel += amt * (0.6 if dashing else 1.5)
-
-
 
 func dash_reset():
 	horiz = 0
