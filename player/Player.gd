@@ -1,8 +1,7 @@
 extends KinematicBody2D
-var up = 0
-var down = 0
-var left = 0
-var right = 0
+# The directions our player can dash in.
+var horiz = 0
+var verti = 0
 
 var vel = Vector2()
 var accel = Vector2()
@@ -23,19 +22,27 @@ func handle_input():
 	if(Input.is_action_just_pressed("ui_left")):
 		amt.x = -1
 		pressed = true
-		left += 1
-	if(Input.is_action_just_pressed("ui_right")):
+		horiz = clamp(horiz, -2, 0)
+		verti = 0
+		horiz -= 1
+	elif(Input.is_action_just_pressed("ui_right")):
 		amt.x = 1
 		pressed = true
-		right += 1
-	if(Input.is_action_just_pressed("ui_up")):
+		verti = 0
+		horiz = clamp(horiz, 0, 2)
+		horiz += 1
+	elif(Input.is_action_just_pressed("ui_up")):
 		amt.y = -1
 		pressed = true
-		up += 1
-	if(Input.is_action_just_pressed("ui_down")):
+		horiz = 0
+		verti = clamp(verti, -2, 0)
+		verti -= 1
+	elif(Input.is_action_just_pressed("ui_down")):
 		amt.y = 1
 		pressed = true
-		down += 1
+		horiz = 0
+		verti = clamp(verti, 0, 2)
+		verti += 1
 	
 	if(pressed):
 		$ChainTimer.start(0.5)
@@ -43,19 +50,17 @@ func handle_input():
 		vel += amt * 0.5
 		
 		# The dash capabilities are implemented here.
-		vel.x *= 3 if left == 2 or right == 2 else 1
-		vel.y *= 3 if up == 2 or down == 2 else 1
+		vel.x *= 5 if abs(horiz) == 2 else 1
+		vel.y *= 5 if abs(verti) == 2 else 1
 		
-		var dashing = up == 2 or down == 2 or left == 2 or right == 2
+		var dashing = abs(horiz) == 2 or abs(verti) == 2
 		if(dashing):
 			dash_reset()
 			
-		accel += amt * (0.3 if dashing else 1.5)
+		accel += amt * (0.6 if dashing else 1.5)
 
 
 
 func dash_reset():
-	up = 0
-	down = 0
-	left = 0
-	right = 0
+	horiz = 0
+	verti = 0
