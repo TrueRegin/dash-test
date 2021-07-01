@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player/Player.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 18.0515, 18.0578 )
+
+[sub_resource type="NoiseTexture" id=2]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.070932, 0.070932 )
+texture = SubResource( 2 )
+
+[node name="ChainTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ChainTimer" to="." method="dash_reset"]
