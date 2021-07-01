@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
 
@@ -6,6 +6,54 @@
 extents = Vector2( 18.0515, 18.0578 )
 
 [sub_resource type="NoiseTexture" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Dash_Horiz"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.144296, 0.0128311, 1.5, -0.134586, -0.102807, 0.115526, -0.0241874, 1, -0.228679, 0.213748, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.6 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.313991, -0.132572, -0.122297, 0.245392, 0.0908488, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.6 )
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Dash_Verti"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.163758, -0.104176, 0.234596, -0.102855, 0.097061, 0.158047, 0.242653, 1, -0.229463, 0.156676, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.6 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.136002, -0.201237, 1.50246, -0.108407, -0.0849283, 0.245392, 0.0908488, 1, -0.289138, 0.0778136, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.6 )
+}
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 512, 320 )
@@ -22,5 +70,9 @@ scale = Vector2( 0.070932, 0.070932 )
 texture = SubResource( 2 )
 
 [node name="ChainTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Dash_Horiz = SubResource( 3 )
+anims/Dash_Verti = SubResource( 4 )
 
 [connection signal="timeout" from="ChainTimer" to="." method="dash_reset"]
