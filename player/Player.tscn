@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://player/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/Dash.wav" type="AudioStream" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18.0515, 18.0578 )
@@ -74,5 +75,8 @@ texture = SubResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Dash_Horiz = SubResource( 3 )
 anims/Dash_Verti = SubResource( 4 )
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
 
 [connection signal="timeout" from="ChainTimer" to="." method="dash_reset"]

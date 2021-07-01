@@ -57,16 +57,17 @@ func handle_input():
 		if(verti_dash):
 			$AnimationPlayer.play("Dash_Verti")
 
-		vel.x *= 5 if horiz_dash else 1
-		vel.y *= 5 if verti_dash else 1
+		vel.x *= 7.5 if horiz_dash else 1
+		vel.y *= 7.5 if verti_dash else 1
 		
 		
 		
 		var dashing = abs(horiz) == 2 or abs(verti) == 2
 		if(dashing):
 			dash_reset()
+			$Dash.play()
 			
-		accel += amt * (0.6 if dashing else 1.5)
+		accel += amt * (0.4 if dashing else 1.2)
 
 func dash_reset():
 	horiz = 0
